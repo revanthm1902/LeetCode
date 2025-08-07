@@ -1,54 +1,37 @@
-import java.util.Random;
-import java.util.Stack;
-
 class Solution {
-    Random rand = new Random();
-
     public int[] sortArray(int[] nums) {
-        iterativeQuickSort(nums);
+        quickSort(nums, 0, nums.length - 1);
         return nums;
     }
 
-    private void iterativeQuickSort(int[] arr) {
-        Stack<int[]> stack = new Stack<>();
-        stack.push(new int[]{0, arr.length - 1});
+    private void quickSort(int[] A, int lo, int hi) {
+        if (lo >= hi) return;
+        // Median-of-three pivot: better chance at middle element
+        int mid = lo + (hi - lo) / 2;
+        int pivot = median(A[lo], A[mid], A[hi]);
+        // Move pivot to end
+        if (pivot == A[lo]) swap(A, lo, hi);
+        else if (pivot == A[mid]) swap(A, mid, hi);
 
-        while (!stack.isEmpty()) {
-            int[] range = stack.pop();
-            int low = range[0], high = range[1];
-
-            if (low < high) {
-                int pivotIndex = randomizedPartition(arr, low, high);
-
-                // Push larger subarray first to minimize stack depth
-                if (pivotIndex - 1 - low > high - (pivotIndex + 1)) {
-                    stack.push(new int[]{low, pivotIndex - 1});
-                    stack.push(new int[]{pivotIndex + 1, high});
-                } else {
-                    stack.push(new int[]{pivotIndex + 1, high});
-                    stack.push(new int[]{low, pivotIndex - 1});
-                }
-            }
+        // Three-way partition: < pivot | == pivot | > pivot
+        int i = lo, lt = lo, gt = hi;
+        while (i <= gt) {
+            if (A[i] < pivot) swap(A, lt++, i++);
+            else if (A[i] > pivot) swap(A, i, gt--);
+            else i++;
         }
+
+        quickSort(A, lo, lt - 1);
+        quickSort(A, gt + 1, hi);
     }
 
-    private int randomizedPartition(int[] arr, int low, int high) {
-        int pivotIdx = rand.nextInt(high - low + 1) + low;
-        swap(arr, pivotIdx, high);
-        return partition(arr, low, high);
+    private int median(int a, int b, int c) {
+        if ((a - b) * (c - a) >= 0) return a;
+        if ((b - a) * (c - b) >= 0) return b;
+        return c;
     }
 
-    private int partition(int[] arr, int low, int high) {
-        int pivot = arr[high];
-        int i = low - 1;
-        for (int j = low; j < high; j++) {
-            if (arr[j] <= pivot) swap(arr, ++i, j);
-        }
-        swap(arr, i + 1, high);
-        return i + 1;
-    }
-
-    private void swap(int[] arr, int i, int j) {
-        int temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
+    private void swap(int[] A, int i, int j) {
+        int t = A[i]; A[i] = A[j]; A[j] = t;
     }
 }
