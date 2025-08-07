@@ -1,44 +1,29 @@
-import java.util.Random;
-
 class Solution {
-    Random rand = new Random();
-
     public int[] sortArray(int[] nums) {
-        quickSort(nums, 0, nums.length - 1);
+        mergeSort(nums, 0, nums.length - 1, new int[nums.length]);
         return nums;
     }
 
-    private void quickSort(int[] arr, int low, int high) {
-        while (low < high) {
-            int pivotIndex = randomizedPartition(arr, low, high);
+    private void mergeSort(int[] arr, int left, int right, int[] temp) {
+        if (left >= right) return;
 
-            // Recurse on smaller partition first to reduce stack depth
-            if (pivotIndex - low < high - pivotIndex) {
-                quickSort(arr, low, pivotIndex - 1);
-                low = pivotIndex + 1;  // Tail call elimination
-            } else {
-                quickSort(arr, pivotIndex + 1, high);
-                high = pivotIndex - 1;  // Tail call elimination
-            }
+        int mid = left + (right - left) / 2;
+        mergeSort(arr, left, mid, temp);
+        mergeSort(arr, mid + 1, right, temp);
+        merge(arr, left, mid, right, temp);
+    }
+
+    private void merge(int[] arr, int left, int mid, int right, int[] temp) {
+        int i = left, j = mid + 1, k = 0;
+
+        while (i <= mid && j <= right) {
+            temp[k++] = (arr[i] <= arr[j]) ? arr[i++] : arr[j++];
         }
-    }
+        while (i <= mid) temp[k++] = arr[i++];
+        while (j <= right) temp[k++] = arr[j++];
 
-    private int randomizedPartition(int[] arr, int low, int high) {
-        int pivotIdx = rand.nextInt(high - low + 1) + low;
-        swap(arr, pivotIdx, high);
-        return partition(arr, low, high);
-    }
-
-    private int partition(int[] arr, int low, int high) {
-        int pivot = arr[high], i = low - 1;
-        for (int j = low; j < high; j++) {
-            if (arr[j] < pivot) swap(arr, ++i, j);
+        for (int x = 0; x < k; x++) {
+            arr[left + x] = temp[x];
         }
-        swap(arr, i + 1, high);
-        return i + 1;
-    }
-
-    private void swap(int[] arr, int i, int j) {
-        int tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
     }
 }
