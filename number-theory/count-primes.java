@@ -6,7 +6,6 @@ class Solution {
         Arrays.fill(isP,true);
         isP[0]=false;
         isP[1]=false;
-        isP[2]=true;
 
         for(int i=2;i<=Math.sqrt(n);i++){
             if(isP[i]){
