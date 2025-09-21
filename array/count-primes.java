@@ -9,9 +9,7 @@ class Solution {
 
         for(int i=2;i<=Math.sqrt(n);i++){
             if(isP[i]){
-                for(int j=i*i;j<n;j+=i){
-                    isP[j]=false;
-                }
+                for(int j=i*i;j<n;j+=i) isP[j]=false;
             }
         }
         int count=0;
