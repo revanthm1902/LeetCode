@@ -6,13 +6,16 @@ class Solution {
         int n = nums.length;
 
         while (r < n) {
+            if(k==0) return 0;
             sum += nums[r];
             while (l <= r && sum > k) {
                 sum -= nums[l];
                 l++;
             }
+            
             if (sum == k) count++;
             r++;
+            
         }
         return count;
     }
