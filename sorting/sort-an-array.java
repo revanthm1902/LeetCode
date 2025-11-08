@@ -1,5 +1,4 @@
 class Solution {
-    Random rand = new Random();
     public int[] sortArray(int[] nums) {
         quickSort(nums, 0, nums.length - 1);
         return nums;
@@ -7,8 +6,6 @@ class Solution {
 
     public void quickSort(int[] nums, int l, int h) {
         if (l < h) {
-            int randomIndex = l + rand.nextInt(h - l + 1);
-            swap(nums, l, randomIndex);
             int pi = partition(nums, l, h);
             quickSort(nums, l, pi - 1);
             quickSort(nums, pi + 1, h);
