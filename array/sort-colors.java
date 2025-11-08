@@ -1,6 +1,38 @@
 class Solution {
     public void sortColors(int[] nums) {
-        Arrays.sort(nums);
-        System.out.print(nums);
+        sort(nums,0,nums.length-1);
     }
+    public static int partition(int[] nums, int l, int h) {
+        int pi = nums[l], i = l + 1, j = h;
+        while (i <= j) {
+            while (i <= h && nums[i] <= pi) {
+                i++;
+            }
+            while (nums[j] > pi) {
+                j--;
+            }
+            if (i < j) {
+                swap(nums, i, j);
+            } else {
+                break;
+            }
+        }
+        swap(nums, j, l);
+        return j;
+    }
+
+    public static void sort(int[] nums, int l, int h) {
+        if (l < h) {
+            int pi = partition(nums, l, h);
+            sort(nums, l, pi - 1);
+            sort(nums, pi + 1, h);
+        }
+    }
+
+    public static void swap(int[] nums, int i, int j) {
+        int t = nums[i];
+        nums[i] = nums[j];
+        nums[j] = t;
+    }
+
 }
