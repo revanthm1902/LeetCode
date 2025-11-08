@@ -1,46 +1,30 @@
 class Solution {
     public int[] sortArray(int[] nums) {
-        merge(nums,0,nums.length-1);
+        sort(nums,0,nums.length-1);
         return nums;
     }
-    public static void merge(int[] arr,int stIdx,int endIdx)
-    {
-        if(stIdx>=endIdx) return;
-        int mid=(stIdx+endIdx)/2;
-        merge(arr,stIdx,mid);
-        merge(arr,mid+1,endIdx);
-        mergeSort(arr,stIdx,mid,endIdx);
+    public int[] sort(int[] nums, int l, int h) {
+        if(l<h){
+            int pi=partition(nums,l,h);
+            sort(nums,l,pi-1);
+            sort(nums,pi+1,h);
+        }
+        return nums;
     }
-    public static void mergeSort(int[] arr,int left,int mid,int high)
-    {
-        int[] temp=new int[high-left+1];
-        int right=mid+1,idx=0;
-        int start=left;
-        while(left<=mid&&right<=high)
-        {
-            if(arr[left]>arr[right])
-            {
-                temp[idx++]=arr[right];
-                right++;
-            }
-            else
-            {
-                temp[idx++]=arr[left];
-                left++;
-            }
+    public int partition(int[] nums,int l, int h){
+        int pi=nums[l],i=l+1,j=h;
+        while(i<=j){
+            while(i<h && nums[i]<pi) i++;
+            while(j>l && nums[j]>pi) j--;
+            if(i<j) swap(nums,i,j);
+            else break;
         }
-        while(left<=mid)
-        {
-            temp[idx++]=arr[left];
-            left++;
-        }
-        while(right<=high)
-        {
-            temp[idx++]=arr[right];
-            right++;
-        }
-        for (int m=0;m<temp.length;m++) {
-            arr[start+m]=temp[m];
-        }
+        swap(nums,j,l);
+        return j;
+    }
+    public void swap(int[] nums,int i,int j){
+        int t=nums[i];
+        nums[i]=nums[j];
+        nums[j]=t;
     }
 }
