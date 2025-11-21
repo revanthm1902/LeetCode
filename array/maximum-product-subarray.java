@@ -10,7 +10,7 @@ class Solution {
                 nums[i]*min_eh
             );
             min_eh=Math.min(
-                Math.max(nums[i],nums[i]*max_eh),
+                Math.min(nums[i],nums[i]*max_eh),
                 nums[i]*min_eh
             );
             max_eh=temp;
