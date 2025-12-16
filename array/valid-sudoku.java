@@ -10,7 +10,7 @@ class Solution {
 
                 if(curr!='.'){
                     String rowKey="row"+i+"_"+curr;
-                    String colKey="col"+i+"_"+curr;
+                    String colKey="col"+j+"_"+curr;
                     String boxKey="box"+((i/sqrtN)*sqrtN+j/sqrtN)+"_"+curr;
 
                     if(!seen.add(rowKey)||!seen.add(colKey)||!seen.add(boxKey)){
