@@ -3,7 +3,7 @@ class Solution {
         int n=s.length();
         int max=Integer.MIN_VALUE;
         int i=0; int j=0;
-
+        if(n==0) return 0;
         Set<Character> set=new HashSet<>();
         while(j<n){
             if(!set.contains(s.charAt(j))){
