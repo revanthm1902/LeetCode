@@ -1,15 +1,20 @@
 class Solution {
     public boolean isPalindrome(int x) {
-        if (x < 0 || (x % 10 == 0 && x != 0)) {
+        int d=x;
+        int rn=0;
+        while(x>0){
+            int ld=x%10;
+            if(x>Integer.MAX_VALUE/10 && ld>7){
+                return false;
+            }
+            
+            rn=(rn*10)+ld;
+            x=x/10;
+        }
+        if(d==rn){
+            return true;
+        }else{
             return false;
         }
-
-        int reversedHalf = 0;
-        while (x > reversedHalf) {
-            reversedHalf = reversedHalf * 10 + x % 10;
-            x /= 10;
-        }
-
-        return x == reversedHalf || x == reversedHalf / 10;
     }
 }
