@@ -18,7 +18,6 @@ public class Solution {
             slow=slow.next;
             if(fast==slow) return true;
         }
-        if(fast.next==null) return false;
         return false;
     }
 }
