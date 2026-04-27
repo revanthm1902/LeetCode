@@ -20,7 +20,6 @@ public class Solution {
                 return true;
             }
         }
-        if(fast.next==null) return false;
         return false;
     }
 }
