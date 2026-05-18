@@ -1,3 +1,14 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        return Counter(s)==Counter(t)
+        if(len(s)!=len(t)):
+            return False
+        mp={}
+        for ch in s:
+            mp[ch]=mp.get(ch,0)+1
+        for ch in t:
+            if ch not in mp:
+                return False
+            mp[ch]-=1
+            if(mp[ch]<0):
+                return False
+        return True
