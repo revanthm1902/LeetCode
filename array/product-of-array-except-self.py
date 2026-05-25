@@ -1,12 +1,14 @@
 class Solution:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
-        n=len(nums)
-        res=[0]*n
-        for i in range(n):
-            p=1
-            for j in range(n):
-                if i==j:
-                    continue
-                p*=nums[j]
-            res[i]=p
+    def productExceptSelf(self, nums: list[int]) -> list[int]:
+        n = len(nums)
+        res = [1] * n
+
+        for i in range(1, n):
+            res[i] = res[i - 1] * nums[i - 1]
+
+        right_tracker = 1
+        for i in range(n - 1, -1, -1):
+            res[i] = res[i] * right_tracker
+            right_tracker = right_tracker * nums[i]
+            
         return res
