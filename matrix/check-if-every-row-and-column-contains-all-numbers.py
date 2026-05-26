@@ -1,10 +1,11 @@
 class Solution:
     def checkValid(self, matrix: List[List[int]]) -> bool:
-        rows=[set() for _ in range(3)]
-        cols=[set() for _ in range(3)]
+        n=len(matrix)
+        rows=[set() for _ in range(n)]
+        cols=[set() for _ in range(n)]
 
-        for r in range(3):
-            for c in range(3):
+        for r in range(n):
+            for c in range(n):
                 val=matrix[r][c]
                 if val in rows[r] or val in cols[c]:
                     return False
