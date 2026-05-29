@@ -1,6 +1,10 @@
 class Solution:
     def check(self, nums: List[int]) -> bool:
-        for num in nums:
-            if nums[0]<=nums[1]:
-                return True
-        return False
+        n=len(nums)
+        drop_cnt=0
+        for i in range(n):
+            if nums[i]>nums[(i+1)%n]:
+                drop_cnt+=1
+            if drop_cnt>1:
+                return False
+        return True
