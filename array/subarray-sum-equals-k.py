@@ -1,12 +1,25 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        res=cursum=0
-        prefixsums={0:1}
-        for num in nums:
-            cursum+=num
-            diff=cursum-k
 
-            res+=prefixsums.get(diff,0)
-            prefixsums[cursum]=1+prefixsums.get(cursum,0)
+            count = 0
+            curr_sum = 0
+            seen = {0:1}
 
-        return res
+            for i in nums:
+                curr_sum+=i
+            
+                if (curr_sum-k) in seen:
+                    count+=seen[curr_sum-k]
+                
+                if curr_sum in seen:
+                    seen[curr_sum]+=1
+
+                else:
+                    seen[curr_sum]=1
+                    
+            return count
+
+
+       
+
+
