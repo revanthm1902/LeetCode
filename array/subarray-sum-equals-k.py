@@ -1,10 +1,12 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        res=0
-        for i in range(len(nums)):
-            sum=0
-            for j in range(i,len(nums)):
-                sum+=nums[j]
-                if sum==k:
-                    res+=1
+        res=cursum=0
+        prefixsums={0:1}
+        for num in nums:
+            cursum+=num
+            diff=cursum-k
+
+            res+=prefixsums.get(diff,0)
+            prefixsums[cursum]=1+prefixsums.get(cursum,0)
+
         return res
