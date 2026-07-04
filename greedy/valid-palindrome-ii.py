@@ -11,4 +11,6 @@ class Solution:
         while l<r:
             if s[l]!=s[r]:
                 return (ispal(l+1,r) or ispal(l,r-1))
-            return True
+            l+=1
+            r-=1
+        return True
