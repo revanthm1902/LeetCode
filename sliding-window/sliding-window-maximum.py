@@ -16,7 +16,8 @@ class Solution:
             q.append(r)
             
             # 2. Remove left out-of-bound index from the front
-
+            if q[0] < r - k + 1:
+                q.popleft()
                 
             # 3. Append maximum to result once the first window of size k is formed
             if r >= k - 1:
