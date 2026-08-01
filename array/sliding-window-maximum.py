@@ -1,10 +1,6 @@
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         res=[]
-        w_sum=sum(nums[:k])
-
-        for i in range(k,len(nums)):
-            w_sum+=nums[i]
-            w_sum-=nums[i-k]
-            res.append(w_sum)
+        for i in range(len(nums)-k+1):
+            res.append(max(nums[i:i+k]))
         return res
