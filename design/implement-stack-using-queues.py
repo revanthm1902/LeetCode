@@ -4,8 +4,8 @@ class MyStack:
         self.q=deque()
 
     def push(self, x: int) -> None:
-        self.q.append(x)
-        for i in range(len(self.q)-1):
+        self.append(x)
+        for i in range(len(q)-1):
             self.q.append(self.q.popleft())
 
     def pop(self) -> int:
