@@ -6,6 +6,7 @@ class Solution:
                 if ch!="#":
                     st.append(ch)
                 else:
-                    st.pop()
+                    if st:
+                        st.pop()
             return "".join(st)
         return build(s)==build(t)
